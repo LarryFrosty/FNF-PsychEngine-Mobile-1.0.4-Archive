@@ -167,12 +167,12 @@ class StrumNote extends FlxSprite
 			centerOrigin();
 		}
 		if(useRGBShader) {
-			rgbShader.enabled = (animation.curAnim != null && animation.curAnim.name != 'static');
 			if (ClientPrefs.data.noteQuantization && animation.name == 'pressed') {
 				rgbShader.r = Note.globalRgbShaders[noteData].r;
 				rgbShader.g = Note.globalRgbShaders[noteData].g;
 				rgbShader.b = Note.globalRgbShaders[noteData].b;
 			}
+			rgbShader.enabled = (animation.curAnim != null && animation.curAnim.name != 'static');
 		}
 	}
 }
