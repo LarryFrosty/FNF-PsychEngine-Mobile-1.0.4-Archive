@@ -51,7 +51,8 @@ class Note extends FlxSprite
 		'No Animation'
 	];
 
-	public static var quantColors:Array<Dynamic> = [
+	// Quantized notes, the first index is the snap and the second index is an array of an RGB color to be used for that snap
+	public static var quantizations:Array<Dynamic> = [
 		[4, [0xFFFF0000, 0xFFFFFFFF, 0xFF7F0000]],
 		[8, [0xFF0000FF, 0xFFFFFFFF, 0xFF00007F]],
 		[12, [0xFF800080, 0xFFFFFFFF, 0xFF3F003F]],
@@ -60,6 +61,11 @@ class Note extends FlxSprite
 		[32, [0xFFFFA500, 0xFFFFFFFF, 0xFF7F5000]],
 		[48, [0xFF00FFFF, 0xFFFFFFFF, 0xFF007F7F]],
 		[64, [0xFF00FF00, 0xFFFFFFFF, 0xFF007F00]],
+	];
+
+	// These notetypes will not be quantized
+	public static var typesDisabledOnQuant:Array<String> = [
+		'Hurt Note'
 	];
 
 	public var extraData:Map<String, Dynamic> = new Map<String, Dynamic>();
@@ -437,27 +443,21 @@ class Note extends FlxSprite
 			animation.play(animName, true);
 	}
 
-	public function setNoteQuantization(snap:Int) {
-		if (isSustainNote) {
-			if (parent != null) {
-				rgbShader.r = parent.rgbShader.r;
-				rgbShader.g = parent.rgbShader.g;
-				rgbShader.b = parent.rgbShader.b;
-			}
-			return;
-		}
-		for (quant in quantColors) {
+	public function setNoteQuantization(snap:Int, checkForNotetypes:Bool = true) {
+		if (checkForNotetypes && typesDisabledOnQuant.contains(noteType)) return;
+
+		for (quant in quantizations) {
 			if (snap % (192 / quant[0]) == 0) {
-				rgbShader.r = quant[1][0];
-				rgbShader.g = quant[1][1];
-				rgbShader.b = quant[1][2];
+				noteSplashData.r = rgbShader.r = quant[1][0];
+				noteSplashData.g = rgbShader.g = quant[1][1];
+				noteSplashData.b = rgbShader.b = quant[1][2];
 				return;
 			}
 		}
 		// Anything above 64th or unsnapped is defaulted to gray
-		rgbShader.r = 0xFF808080;
-		rgbShader.g = 0xFFFFFFFF;
-		rgbShader.b = 0xFF000000;
+		noteSplashData.r = rgbShader.r = 0xFF808080;
+		noteSplashData.g = rgbShader.g = 0xFFFFFFFF;
+		noteSplashData.b = rgbShader.b = 0xFF000000;
 	}
 
 	public static function getNoteSkinPostfix()

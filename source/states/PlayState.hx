@@ -1427,7 +1427,7 @@ class PlayState extends MusicBeatState
 				swagNote.sustainLength = holdLength;
 				swagNote.noteType = noteType;
 				swagNote.scrollFactor.set();
-				swagNote.setNoteQuantization(Math.round(daBpm * (spawnTime - bpmPos - ClientPrefs.data.noteOffset) / 1000 / 60 * 48));
+				if (ClientPrefs.data.noteQuantization) swagNote.setNoteQuantization(Math.round(daBpm * (spawnTime - bpmPos - ClientPrefs.data.noteOffset) / 1000 / 60 * 48), true);
 				unspawnNotes.push(swagNote);
 
 				var curStepCrochet:Float = 60 / daBpm * 1000 / 4.0;
@@ -1445,7 +1445,7 @@ class PlayState extends MusicBeatState
 						sustainNote.noteType = swagNote.noteType;
 						sustainNote.scrollFactor.set();
 						sustainNote.parent = swagNote;
-						sustainNote.setNoteQuantization(Math.round(daBpm * (spawnTime - bpmPos - ClientPrefs.data.noteOffset) / 1000 / 60 * 48));
+						if (ClientPrefs.data.noteQuantization) sustainNote.setNoteQuantization(Math.round(daBpm * (spawnTime - bpmPos - ClientPrefs.data.noteOffset) / 1000 / 60 * 48), true);
 						unspawnNotes.push(sustainNote);
 						swagNote.tail.push(sustainNote);
 
@@ -3242,12 +3242,17 @@ class PlayState extends MusicBeatState
 				}
 			}
 
-			if(!cpuControlled && !opponentMode)
-			{
-				var spr = playerStrums.members[note.noteData];
+			var spr = playerStrums.members[note.noteData];
+			if(!cpuControlled && !opponentMode) {
 				if(spr != null) spr.playAnim('confirm', true);
 			}
 			else strumPlayAnim(false, Std.int(Math.abs(note.noteData)), Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
+
+			if (ClientPrefs.data.noteQuantization && spr != null) {
+				spr.rgbShader.r = note.rgbShader.r;
+				spr.rgbShader.g = note.rgbShader.g;
+				spr.rgbShader.b = note.rgbShader.b;
+			}
 			vocals.volume = 1;
 
 			if (!opponentMode)
