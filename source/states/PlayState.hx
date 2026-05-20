@@ -1376,11 +1376,17 @@ class PlayState extends MusicBeatState
 		var sectionsData:Array<SwagSection> = PlayState.SONG.notes;
 		var ghostNotesCaught:Int = 0;
 		var daBpm:Float = Conductor.bpm;
+		var bpmIndex:Int = -1;
+		var bpmPos:Float = 0;
 	
 		for (section in sectionsData)
 		{
-			if (section.changeBPM != null && section.changeBPM && section.bpm != null && daBpm != section.bpm)
-				daBpm = section.bpm;
+			if (section.changeBPM != null && section.changeBPM) {
+				if (section.bpm != null && daBpm != section.bpm) {
+					daBpm = section.bpm;
+				}
+				bpmPos = Conductor.bpmChangeMap[++bpmIndex]?.songTime;
+			}
 
 			for (i in 0...section.sectionNotes.length)
 			{
@@ -1420,8 +1426,8 @@ class PlayState extends MusicBeatState
 				swagNote.mustPress = gottaHitNote;
 				swagNote.sustainLength = holdLength;
 				swagNote.noteType = noteType;
-	
 				swagNote.scrollFactor.set();
+				swagNote.setNoteQuantization(Math.round(daBpm * (spawnTime - bpmPos - ClientPrefs.data.noteOffset) / 1000 / 60 * 48));
 				unspawnNotes.push(swagNote);
 
 				var curStepCrochet:Float = 60 / daBpm * 1000 / 4.0;
@@ -1439,6 +1445,7 @@ class PlayState extends MusicBeatState
 						sustainNote.noteType = swagNote.noteType;
 						sustainNote.scrollFactor.set();
 						sustainNote.parent = swagNote;
+						sustainNote.setNoteQuantization(Math.round(daBpm * (spawnTime - bpmPos - ClientPrefs.data.noteOffset) / 1000 / 60 * 48));
 						unspawnNotes.push(sustainNote);
 						swagNote.tail.push(sustainNote);
 

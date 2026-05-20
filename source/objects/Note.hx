@@ -51,6 +51,17 @@ class Note extends FlxSprite
 		'No Animation'
 	];
 
+	public static var quantColors:Array<Dynamic> = [
+		[4, [0xFFFF0000, 0xFFFFFFFF, 0xFF7F0000]],
+		[8, [0xFF0000FF, 0xFFFFFFFF, 0xFF00007F]],
+		[12, [0xFF800080, 0xFFFFFFFF, 0xFF3F003F]],
+		[16, [0xFFFFFF00, 0xFFFFFFFF, 0xFF7F7F00]],
+		[24, [0xFFFFC0CB, 0xFFFFFFFF, 0xFF7F5F64]],
+		[32, [0xFFFFA500, 0xFFFFFFFF, 0xFF7F5000]],
+		[48, [0xFF00FFFF, 0xFFFFFFFF, 0xFF007F7F]],
+		[64, [0xFF00FF00, 0xFFFFFFFF, 0xFF007F00]],
+	];
+
 	public var extraData:Map<String, Dynamic> = new Map<String, Dynamic>();
 
 	public var strumTime:Float = 0;
@@ -424,6 +435,29 @@ class Note extends FlxSprite
 
 		if(animName != null)
 			animation.play(animName, true);
+	}
+
+	public function setNoteQuantization(snap:Int) {
+		if (isSustainNote) {
+			if (parent != null) {
+				rgbShader.r = parent.rgbShader.r;
+				rgbShader.g = parent.rgbShader.g;
+				rgbShader.b = parent.rgbShader.b;
+			}
+			return;
+		}
+		for (quant in quantColors) {
+			if (snap % (192 / quant[0]) == 0) {
+				rgbShader.r = quant[1][0];
+				rgbShader.g = quant[1][1];
+				rgbShader.b = quant[1][2];
+				return;
+			}
+		}
+		// Anything above 64th or unsnapped is defaulted to gray
+		rgbShader.r = 0xFF808080;
+		rgbShader.g = 0xFFFFFFFF;
+		rgbShader.b = 0xFF000000;
 	}
 
 	public static function getNoteSkinPostfix()
