@@ -3155,12 +3155,17 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if (!cpuControlled && opponentMode)
-		{
-			var spr = opponentStrums.members[note.noteData];
+		var spr = opponentStrums.members[note.noteData];
+		if (!cpuControlled && opponentMode) {
 			if(spr != null) spr.playAnim('confirm', true);
 		}
 		else strumPlayAnim(true, Std.int(Math.abs(note.noteData)), Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
+		if (ClientPrefs.data.noteQuantization && spr != null) {
+			spr.rgbShader.r = note.rgbShader.r;
+			spr.rgbShader.g = note.rgbShader.g;
+			spr.rgbShader.b = note.rgbShader.b;
+		}
+
 		if (opponentVocals.length <= 0) vocals.volume = 1;
 		else opponentVocals.volume = 1;
 		note.hitByOpponent = true;

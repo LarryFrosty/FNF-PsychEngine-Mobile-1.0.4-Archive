@@ -79,7 +79,7 @@ class VisualsSettingsSubState extends BaseOptionsMenu
 		addOption(option);
 		option.onChange = playNoteSplashes;
 
-		var option:Option = new Option('Quant Notes',
+		var option:Option = new Option('Note Quantization',
 			'If checked, colors the notes based on their snap.',
 			'noteQuantization',
 			BOOL);
