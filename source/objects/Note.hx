@@ -444,7 +444,7 @@ class Note extends FlxSprite
 	}
 
 	public function setNoteQuantization(snap:Int, checkForNotetypes:Bool = true) {
-		if (checkForNotetypes && typesDisabledOnQuant.contains(noteType)) return;
+		if (!rgbShader.enabled || checkForNotetypes && typesDisabledOnQuant.contains(noteType)) return;
 
 		for (quant in quantizations) {
 			if (snap % (192 / quant[0]) == 0) {

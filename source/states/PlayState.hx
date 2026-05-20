@@ -3160,7 +3160,7 @@ class PlayState extends MusicBeatState
 			if(spr != null) spr.playAnim('confirm', true);
 		}
 		else strumPlayAnim(true, Std.int(Math.abs(note.noteData)), Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
-		if (ClientPrefs.data.noteQuantization && spr != null) {
+		if (ClientPrefs.data.noteQuantization && spr != null && spr.useRGBShader) {
 			spr.rgbShader.r = note.rgbShader.r;
 			spr.rgbShader.g = note.rgbShader.g;
 			spr.rgbShader.b = note.rgbShader.b;
@@ -3253,7 +3253,7 @@ class PlayState extends MusicBeatState
 			}
 			else strumPlayAnim(false, Std.int(Math.abs(note.noteData)), Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
 
-			if (ClientPrefs.data.noteQuantization && spr != null) {
+			if (ClientPrefs.data.noteQuantization && spr != null && spr.useRGBShader) {
 				spr.rgbShader.r = note.rgbShader.r;
 				spr.rgbShader.g = note.rgbShader.g;
 				spr.rgbShader.b = note.rgbShader.b;
