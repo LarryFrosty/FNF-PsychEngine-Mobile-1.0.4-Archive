@@ -233,7 +233,7 @@ class Controls
 			var substate:MusicBeatSubstate = MusicBeatSubstate.instance;
 			if (recursiveSubstates && substate.subState != null) {
 				while (true) {
-					if (substate.subState != null) substate = substate.subState;
+					if (substate.subState != null) substate = cast(substate.subState, MusicBeatSubstate);
 					else break;
 				}
 			}
