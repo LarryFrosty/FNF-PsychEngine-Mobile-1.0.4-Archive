@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 jobs:
   Mobile:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, ubuntu-latest]
     strategy:
       fail-fast: false
       matrix:
