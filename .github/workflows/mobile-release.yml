@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 jobs:
   Mobile:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -19,7 +19,7 @@ jobs:
       - name: Setup Haxe
         uses: krdlab/setup-haxe@master
         with:
-          haxe-version: latest
+          haxe-version: 4.3.6
 
       - name: Restore Previous Cache
         id: cache-debug-build-android-restore
