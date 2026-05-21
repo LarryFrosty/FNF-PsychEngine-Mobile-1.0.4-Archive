@@ -167,7 +167,7 @@ class StrumNote extends FlxSprite
 			centerOrigin();
 		}
 		if(useRGBShader) {
-			if (ClientPrefs.data.noteQuantization && animation.name == 'pressed') {
+			if (ClientPrefs.data.noteQuantization && animation.name == 'static') {
 				rgbShader.r = Note.globalRgbShaders[noteData].r;
 				rgbShader.g = Note.globalRgbShaders[noteData].g;
 				rgbShader.b = Note.globalRgbShaders[noteData].b;
