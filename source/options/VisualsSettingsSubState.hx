@@ -82,7 +82,7 @@ class VisualsSettingsSubState extends BaseOptionsMenu
 		var option:Option = new Option('Note Quantization',
 			'If checked, colors the notes based on their snap.',
 			'noteQuantization',
-			BOOL);
+			BOOL, null, null, true);
 		addOption(option);
 
 		var option:Option = new Option('Hide HUD',

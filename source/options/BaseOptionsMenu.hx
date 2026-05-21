@@ -19,6 +19,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private var checkboxGroup:FlxTypedGroup<CheckboxThingie>;
 	private var grpTexts:FlxTypedGroup<AttachedText>;
+	private var settingGroup:FlxTypedGroup<FlxSprite>;
 
 	private var descBox:FlxSprite;
 	private var descText:FlxText;
@@ -56,6 +57,9 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		checkboxGroup = new FlxTypedGroup<CheckboxThingie>();
 		add(checkboxGroup);
 
+		settingGroup = new FlxTypedGroup<FlxSprite>();
+		add(settingGroup);
+
 		descBox = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
 		descBox.alpha = 0.6;
 		add(descBox);
@@ -79,6 +83,15 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			optionText.yMult = 90;*/
 			optionText.targetY = i;
 			grpOptions.add(optionText);
+
+			if (optionsArray[i].customizable) {
+				var setting:FlxSprite = new FlxSprite(optionText.x + optionText.width + 100, optionText.y).loadGraphic(Paths.image('modsMenuButton'), 54, 54);
+				setting.animation.add('idle', [3]);
+				setting.animation.play('idle');
+				setting.ID = i;
+				setting.visible = false;
+				settingGroup.add(setting);
+			}
 
 			if(optionsArray[i].type == BOOL)
 			{
@@ -497,6 +510,9 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		{
 			text.alpha = 0.6;
 			if(text.ID == curSelected) text.alpha = 1;
+		}
+		for (setting in settingGroup) {
+			setting.visible = setting.ID == curSelected;
 		}
 
 		descBox.setPosition(descText.x - 10, descText.y - 10);
