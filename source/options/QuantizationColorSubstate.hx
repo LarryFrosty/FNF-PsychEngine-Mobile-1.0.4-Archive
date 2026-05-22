@@ -24,7 +24,6 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 		add(bg);
 
 		var box = new FlxSprite().makeGraphic(850, 500, 0xC9000000);
-		box.camera = game.camOther;
 		box.screenCenter();
 		FlxSpriteUtil.drawRect(box, 0, 0, box.width, box.height, 0, {thickness: 10, color: 0xFFFFFFFF});
 		add(box);
@@ -82,7 +81,7 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 					alph.ID = i;
 					btnGroup.add(alph);
 
-					var bg = new FlxSprite(alph.x - 20, alph.y - 5).makeGraphic(alph.width * 1.5, alph.height * 1.5, 0xFF1A1A1A);
+					var bg = new FlxSprite(alph.x - 20, alph.y - 5).makeGraphic(Math.round(alph.width * 1.5), Math.round(alph.height * 1.5), 0xFF1A1A1A);
 					FlxSpriteUtil.drawRect(bg, 0, 0, bg.width, bg.height, 0, {thickness: 5, color: 0xFFFFFFFF});
 					insert(members.indexOf(alph), bg);
 

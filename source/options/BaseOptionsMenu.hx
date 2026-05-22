@@ -88,7 +88,8 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			grpOptions.add(optionText);
 
 			if (optionsArray[i].customizable) {
-				var setting:AttachedSprite = new AttachedSprite().loadGraphic(Paths.image('modsMenuButtons'), true, 54, 54);
+				var setting:AttachedSprite = new AttachedSprite();
+				setting.loadGraphic(Paths.image('modsMenuButtons'), true, 54, 54);
 				setting.animation.add('idle', [3]);
 				setting.animation.play('idle');
 				setting.scale.set(2, 2);
@@ -549,12 +550,12 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			FlxTween.cancelTweensOf(setting);
 			if (setting.ID == curSelected) {
 				setting.alpha = 0;
-				setting.xAdd = optionText.width - 200;
+				setting.xAdd = sprTracker.width - 200;
 				FlxTween.tween(setting, { xAdd: setting.xAdd + 300, alpha: 1 }, 0.5, { ease: FlxEase.quadOut });
 			}
 			else {
 				setting.alpha = 1;
-				setting.xAdd = optionText.width + 100;
+				setting.xAdd = sprTracker.width + 100;
 				FlxTween.tween(setting, { xAdd: setting.xAdd - 300, alpha: 0 }, 0.5, { ease: FlxEase.quadOut });
 			}
 		}
