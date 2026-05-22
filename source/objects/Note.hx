@@ -51,16 +51,16 @@ class Note extends FlxSprite
 		'No Animation'
 	];
 
-	// Quantized notes, the first index is the snap and the second index is an array of an RGB color to be used for that snap
+	// Snaps to use for quantization
 	public static var quantizations:Array<Dynamic> = [
-		[4, [0xFFFF0000, 0xFFFFFFFF, 0xFF7F0000]],
-		[8, [0xFF0000FF, 0xFFFFFFFF, 0xFF00007F]],
-		[12, [0xFF800080, 0xFFFFFFFF, 0xFF3F003F]],
-		[16, [0xFFFFFF00, 0xFFFFFFFF, 0xFF7F7F00]],
-		[24, [0xFFFFC0CB, 0xFFFFFFFF, 0xFF7F5F64]],
-		[32, [0xFFFFA500, 0xFFFFFFFF, 0xFF7F5000]],
-		[48, [0xFF00FFFF, 0xFFFFFFFF, 0xFF007F7F]],
-		[64, [0xFF00FF00, 0xFFFFFFFF, 0xFF007F00]],
+		4,
+		8,
+		12,
+		16,
+		24,
+		32,
+		48,
+		64
 	];
 
 	// These notetypes will not be quantized
@@ -446,11 +446,11 @@ class Note extends FlxSprite
 	public function setNoteQuantization(snap:Int, checkForNotetypes:Bool = true) {
 		if (!rgbShader.enabled || checkForNotetypes && typesDisabledOnQuant.contains(noteType)) return;
 
-		for (quant in quantizations) {
-			if (snap % (192 / quant[0]) == 0) {
-				noteSplashData.r = rgbShader.r = quant[1][0];
-				noteSplashData.g = rgbShader.g = quant[1][1];
-				noteSplashData.b = rgbShader.b = quant[1][2];
+		for (i => quant in quantizations) {
+			if (snap % (192 / quant) == 0) {
+				noteSplashData.r = rgbShader.r = ClientPrefs.data.arrowRGBQuantization[i][0];
+				noteSplashData.g = rgbShader.g = ClientPrefs.data.arrowRGBQuantization[i][0];
+				noteSplashData.b = rgbShader.b = ClientPrefs.data.arrowRGBQuantization[i][0];
 				return;
 			}
 		}
