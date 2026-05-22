@@ -12,6 +12,8 @@ import objects.Note;
 
 class QuantizationColorSubstate extends MusicBeatSubstate
 {
+	var ignoreCheckForThisFrame:Bool = false;
+
 	var notesGroup:FlxTypedGroup<Note>;
 	var btnGroup:FlxTypedGroup<FlxSprite>;
 	var modeNotes:FlxTypedGroup<FlxSprite>;
@@ -96,11 +98,16 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 		controllerPointer.visible = controls.controllerMode;
 		_lastControllerMode = controls.controllerMode;
 
-		addTouchPad('NONE', 'B');
+		addTouchPad('NONE', 'B_C');
 		super.create();
 	}
 
 	override function update(elapsed:Float) {
+		if (ignoreCheckForThisFrame) {
+			ignoreCheckForThisFrame = false;
+			return;
+		}
+
 		// Early controller checking
 		if (FlxG.gamepads.anyJustPressed(ANY)) controls.controllerMode = true;
 		else if (FlxG.mouse.justPressed || FlxG.mouse.deltaScreenX != 0 || FlxG.mouse.deltaScreenY != 0) controls.controllerMode = false;
@@ -341,7 +348,7 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 						}
 					} 
 				}
-				else if (controls.RESET && hexTypeNum < 0) {
+				else if (touchPad.buttonC.justPressed || controls.RESET && hexTypeNum < 0) {
 					setShaderColor(ClientPrefs.defaultData.arrowRGBQuantization[editingNote][curSelectedMode]);
 					FlxG.sound.play(Paths.sound('cancelMenu'), 0.6);
 					updateColors();
@@ -462,18 +469,20 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 				editingGroup.add(alphabetB);
 				alphabetHex = makeColorAlphabet(txtX, txtY - 55);
 				editingGroup.add(alphabetHex);
-				hexTypeLine = new FlxSprite(0, 20).makeGraphic(5, 62, FlxColor.WHITE);
+				hexTypeLine = new FlxSprite(0, 45).makeGraphic(5, 62, FlxColor.WHITE);
 				hexTypeLine.visible = false;
 				editingGroup.add(hexTypeLine);
 
 				spawnNotes();
-				updateColors();
+				updateNotes();
 
 				var tip:FlxText = new FlxText(400, 630, 300, Language.getPhrase('note_colors_tip', 'Press the RESET key to Reset the selected Note Part.'), 16);
 				tip.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 				tip.borderSize = 2;
 				editingGroup.add(tip);
 		}
+
+		ignoreCheckForThisFrame = true;
 		currentTab = tab;
 	}
 
