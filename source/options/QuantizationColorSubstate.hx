@@ -12,7 +12,7 @@ import objects.Note;
 
 class QuantizationColorSubstate extends MusicBeatSubstate
 {
-	var ignoreInputs:Int = 0;
+	var ignoreCheckForThisFrame:Bool = false;
 
 	var notesGroup:FlxTypedGroup<Note>;
 	var btnGroup:FlxTypedGroup<FlxSprite>;
@@ -102,8 +102,8 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 	}
 
 	override function update(elapsed:Float) {
-		if (ignoreInputs > 0) {
-			ignoreInputs--;
+		if (ignoreCheckForThisFrame) {
+			ignoreCheckForThisFrame = false;
 			super.update(elapsed);
 			return;
 		}
@@ -161,6 +161,7 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 					editingNote = btn.ID;
 					reloadTab(NOTE_EDITING);
 					FlxG.sound.play(Paths.sound('scrollMenu'));
+					return;
 				}
 				else if (btn.text == 'RESET') {
 					var note:Note = notesGroup.members[btn.ID];
@@ -490,7 +491,7 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 				touchPad.buttonB.x = old;
 		}
 
-		ignoreInputs = 3;
+		ignoreCheckForThisFrame = true;
 		currentTab = tab;
 	}
 
