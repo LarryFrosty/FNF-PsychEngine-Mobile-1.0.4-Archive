@@ -58,7 +58,7 @@ class Option
 		if (this.customizationClass == null) this.customizable = false;
 
 		if (this.customizable)
-			description = '(This setting is customizable, click the cog!)\n$description';
+			this.description = '(This setting is customizable, click the cog!)\n${this.description}';
 
 		if(this.type != KEYBIND) this.defaultValue = Reflect.getProperty(ClientPrefs.defaultData, variable);
 		switch(type)

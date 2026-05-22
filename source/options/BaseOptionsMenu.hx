@@ -545,25 +545,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			if(text.ID == curSelected) text.alpha = 1;
 		}
 		for (setting in settingGroup) {
-			if (setting.ID == curSelected) {
-				FlxTween.cancelTweensOf(setting);
-				setting.alpha = 0;
-				setting.xAdd = setting.sprTracker.width + 20 - 300;
-				FlxTween.tween(setting, { xAdd: setting.xAdd + 300, alpha: 1 }, 0.15, { ease: FlxEase.quadOut });
-			}
-			else {
-				// bruhhhhh
-				var shouldRun = true;
-				@:privateAccess
-				FlxTween.globalManager.forEachTweensOf(setting, null, twn -> {
-					shouldRun = false;
-				});
-				if (shouldRun) {
-					setting.alpha = 1;
-					setting.xAdd = setting.sprTracker.width + 20;
-					FlxTween.tween(setting, { xAdd: setting.xAdd - 300, alpha: 0 }, 0.15, { ease: FlxEase.quadOut });
-				}
-			}
+			setting.alpha = setting.ID == curSelected ? 1 : 0;
 		}
 
 		descBox.setPosition(descText.x - 10, descText.y - 10);
