@@ -155,9 +155,9 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 				}
 				else if (btn.text == 'RESET') {
 					var note:Note = notesGroup.members[btn.ID];
-					ClientPrefs.data.arrowRGBQuantization[btn.ID][0] = ClientPrefs.defaultData.arrowRGBQuantization[btn.ID][0] = note.rgbShader.r;
-					ClientPrefs.data.arrowRGBQuantization[btn.ID][1] = ClientPrefs.defaultData.arrowRGBQuantization[btn.ID][1] = note.rgbShader.g;
-					ClientPrefs.data.arrowRGBQuantization[btn.ID][2] = ClientPrefs.defaultData.arrowRGBQuantization[btn.ID][2] = note.rgbShader.b;
+					note.rgbShader.r = ClientPrefs.data.arrowRGBQuantization[btn.ID][0] = ClientPrefs.defaultData.arrowRGBQuantization[btn.ID][0];
+					note.rgbShader.g = ClientPrefs.data.arrowRGBQuantization[btn.ID][1] = ClientPrefs.defaultData.arrowRGBQuantization[btn.ID][1];
+					note.rgbShader.b = ClientPrefs.data.arrowRGBQuantization[btn.ID][2] = ClientPrefs.defaultData.arrowRGBQuantization[btn.ID][2];
 					FlxG.sound.play(Paths.sound('cancelMenu'));
 				}
 				else if (btn.text == 'BACK') {
@@ -365,7 +365,7 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 				box = new FlxSprite().makeGraphic(850, 500, 0xC9000000);
 				box.screenCenter();
 				FlxSpriteUtil.drawRect(box, 0, 0, box.width, box.height, 0, {thickness: 10, color: 0xFFFFFFFF});
-				insert(members.indexOf(notesGroup), box);
+				insert(members.indexOf(modeNotes), box);
 
 				for (i in 0...8) {
 					var note = new Note(0, 0);
@@ -402,10 +402,10 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 					btnGroup.insert(btnGroup.members.indexOf(resetTxt), bg);
 				}
 			case NOTE_EDITING:
-				var box = new FlxSprite().makeGraphic(950, 670, 0xC9000000);
+				box = new FlxSprite().makeGraphic(950, 670, 0xC9000000);
 				box.screenCenter();
 				FlxSpriteUtil.drawRect(box, 0, 0, box.width, box.height, 0, {thickness: 10, color: 0xFFFFFFFF});
-				insert(members.indexOf(notesGroup), box);
+				insert(members.indexOf(modeNotes), box);
 
 				var backTxt = new Alphabet(215, 625, 'BACK');
 				backTxt.setScale(0.6, 0.6);
@@ -418,7 +418,7 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 				var snap = new Alphabet(250, 10, Note.quantizations[editingNote] + 'th Note', false);
 				snap.setScale(0.9, 0.9);
 				for (letter in snap.letters) letter.setColorTransform(1, 1, 1, 1, 255, 255, 255, 0);
-				add(snap);
+				editingGroup.add(snap);
 
 				copyButton = new FlxSprite(640, 50).loadGraphic(Paths.image('noteColorMenu/copy'));
 				copyButton.alpha = 0.6;
@@ -548,9 +548,9 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 		bigNote.setPosition(230, 275);
 		bigNote.setGraphicSize(280);
 		bigNote.updateHitbox();
-		bigNote.rgbShader.r = ClientPrefs.data.arrowRGBQuantization[0][0];
-		bigNote.rgbShader.g = ClientPrefs.data.arrowRGBQuantization[0][1];
-		bigNote.rgbShader.b = ClientPrefs.data.arrowRGBQuantization[0][2];
+		bigNote.rgbShader.r = ClientPrefs.data.arrowRGBQuantization[editingNote][0];
+		bigNote.rgbShader.g = ClientPrefs.data.arrowRGBQuantization[editingNote][1];
+		bigNote.rgbShader.b = ClientPrefs.data.arrowRGBQuantization[editingNote][2];
 		editingGroup.add(bigNote);
 	}
 
@@ -580,6 +580,15 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 			colorWheelSelector.y -= Math.cos(hueWrap) * colorWheel.height/2 * wheelColor.saturation;
 		}
 		colorGradientSelector.y = colorGradient.y + colorGradient.height * (1 - color.brightness);
+
+		switch(curSelectedMode) {
+			case 0:
+				bigNote.rgbShader.r = color;
+			case 1:
+				bigNote.rgbShader.g = color;
+			case 2:
+				bigNote.rgbShader.b = color;
+		}
 	}
 
 	function setShaderColor(value:FlxColor) ClientPrefs.data.arrowRGBQuantization[editingNote][curSelectedMode] = value;
