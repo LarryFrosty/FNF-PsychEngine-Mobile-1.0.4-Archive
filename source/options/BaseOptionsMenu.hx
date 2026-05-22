@@ -1,5 +1,7 @@
 package options;
 
+import flixel.util.FlxSpriteUtil;
+
 import flixel.input.keyboard.FlxKey;
 import flixel.input.gamepad.FlxGamepad;
 import flixel.input.gamepad.FlxGamepadInputID;
