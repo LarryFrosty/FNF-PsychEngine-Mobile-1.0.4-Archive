@@ -1,7 +1,5 @@
 package options;
 
-import flixel.util.FlxSpriteUtil;
-
 import flixel.input.keyboard.FlxKey;
 import flixel.input.gamepad.FlxGamepad;
 import flixel.input.gamepad.FlxGamepadInputID;
@@ -102,8 +100,15 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				setting.sprTracker = optionText;
 				setting.xAdd = optionText.width + 50;
 				setting.yAdd = 25;
-				FlxSpriteUtil.drawRect(setting, 20, -10, setting.width + 20, setting.height + 10, 0x7F000000);
 				settingGroup.add(setting);
+
+				var settingBg = new AttachedSprite();
+				settingBg.makeGraphic(setting.width + 40, setting.height + 20, FlxColor.BLACK);
+				settingBg.sprTracker = setting;
+				settingBg.xAdd = -20;
+				settingBg.yAdd = -10;
+				settingBg.alphaMult = 0.6;
+				insert(members.indexOf(settingGroup), settingBg);
 			}
 
 			if(optionsArray[i].type == BOOL)
