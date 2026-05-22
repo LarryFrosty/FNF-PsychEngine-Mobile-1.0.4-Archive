@@ -12,7 +12,7 @@ import objects.Note;
 
 class QuantizationColorSubstate extends MusicBeatSubstate
 {
-	var ignoreCheckForThisFrame:Bool = false;
+	var ignoreInputs:Int = 0;
 
 	var notesGroup:FlxTypedGroup<Note>;
 	var btnGroup:FlxTypedGroup<FlxSprite>;
@@ -86,8 +86,6 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 		FlxTween.tween(grid, { alpha: 1 }, 0.5, { ease: FlxEase.quadOut });
 		FlxTween.tween(bg, { alpha: 0.4 }, 0.5, { ease: FlxEase.quadOut });
 
-		reloadTab();
-
 		controllerPointer = new FlxShapeCircle(0, 0, 20, {thickness: 0}, FlxColor.WHITE);
 		controllerPointer.offset.set(20, 20);
 		controllerPointer.screenCenter();
@@ -98,13 +96,15 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 		controllerPointer.visible = controls.controllerMode;
 		_lastControllerMode = controls.controllerMode;
 
-		addTouchPad('NONE', 'B_C');
+		reloadTab();
+
 		super.create();
 	}
 
 	override function update(elapsed:Float) {
-		if (ignoreCheckForThisFrame) {
-			ignoreCheckForThisFrame = false;
+		if (ignoreInputs > 0) {
+			ignoreInputs--;
+			super.update(elapsed);
 			return;
 		}
 
@@ -185,6 +185,7 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 				if (controls.BACK || pressedBack) {
 					reloadTab(NOTE_SELECTION);
 					FlxG.sound.play(Paths.sound('cancelMenu'));
+					super.update(elapsed);
 					return;
 				}
 
@@ -366,6 +367,7 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 		btnGroup.clear();
 		modeNotes.clear();
 		editingGroup.clear();
+		removeTouchPad();
 
 		switch(tab) {
 			case NOTE_SELECTION:
@@ -407,6 +409,8 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 					var bg = new FlxSprite(resetTxt.x - 20, resetTxt.y - 5).makeGraphic(Math.round(resetTxt.width * 1.5), Math.round(resetTxt.height * 1.5), 0xFF1A1A1A);
 					FlxSpriteUtil.drawRect(bg, 0, 0, bg.width, bg.height, 0, {thickness: 5, color: 0xFFFFFFFF});
 					btnGroup.insert(btnGroup.members.indexOf(resetTxt), bg);
+
+					addTouchPad('NONE', 'B');
 				}
 			case NOTE_EDITING:
 				box = new FlxSprite().makeGraphic(950, 670, 0xC9000000);
@@ -480,9 +484,14 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 				tip.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 				tip.borderSize = 2;
 				editingGroup.add(tip);
+
+				addTouchPad('NONE', 'B_C');
+				var old = touchPad.buttonC.x;
+				touchPad.buttonC.x = touchPad.buttonB.x;
+				touchPad.buttonB.x = old;
 		}
 
-		ignoreCheckForThisFrame = true;
+		ignoreInputs = 3;
 		currentTab = tab;
 	}
 

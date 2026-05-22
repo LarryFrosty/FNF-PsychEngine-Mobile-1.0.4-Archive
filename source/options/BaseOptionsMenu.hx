@@ -88,6 +88,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			grpOptions.add(optionText);
 
 			if (optionsArray[i].customizable) {
+				if (!controls.controllerMode && !FlxG.mouse.visible) FlxG.mouse.visible = true;
 				var setting:AttachedSprite = new AttachedSprite('settingButton');
 				setting.scale.set(1.5, 1.5);
 				setting.updateHitbox();
@@ -95,7 +96,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				setting.copyAlpha = false;
 				setting.alpha = 0;
 				setting.sprTracker = optionText;
-				setting.xAdd = optionText.width + 20;
+				setting.xAdd = optionText.width + 30;
 				setting.yAdd = 50;
 				setting.offset.x = 150;
 				settingGroup.add(setting);
