@@ -108,6 +108,8 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 			return;
 		}
 
+		super.update(elapsed);
+
 		// Early controller checking
 		if (FlxG.gamepads.anyJustPressed(ANY)) controls.controllerMode = true;
 		else if (FlxG.mouse.justPressed || FlxG.mouse.deltaScreenX != 0 || FlxG.mouse.deltaScreenY != 0) controls.controllerMode = false;
@@ -177,7 +179,6 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 			case NOTE_SELECTION:
 				if (controls.BACK) {
 					ClientPrefs.saveSettings();
-					FlxG.mouse.visible = false;
 					close();
 					FlxG.sound.play(Paths.sound('cancelMenu'));
 				}
@@ -185,7 +186,6 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 				if (controls.BACK || pressedBack) {
 					reloadTab(NOTE_SELECTION);
 					FlxG.sound.play(Paths.sound('cancelMenu'));
-					super.update(elapsed);
 					return;
 				}
 
@@ -355,7 +355,6 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 					updateColors();
 				}
 		}
-		super.update(elapsed);
 	}
 
 	public function reloadTab(tab:SelectionTab = NOTE_SELECTION) {
@@ -409,9 +408,9 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 					var bg = new FlxSprite(resetTxt.x - 20, resetTxt.y - 5).makeGraphic(Math.round(resetTxt.width * 1.5), Math.round(resetTxt.height * 1.5), 0xFF1A1A1A);
 					FlxSpriteUtil.drawRect(bg, 0, 0, bg.width, bg.height, 0, {thickness: 5, color: 0xFFFFFFFF});
 					btnGroup.insert(btnGroup.members.indexOf(resetTxt), bg);
-
-					addTouchPad('NONE', 'B');
 				}
+
+				addTouchPad('NONE', 'B');
 			case NOTE_EDITING:
 				box = new FlxSprite().makeGraphic(950, 670, 0xC9000000);
 				box.screenCenter();
