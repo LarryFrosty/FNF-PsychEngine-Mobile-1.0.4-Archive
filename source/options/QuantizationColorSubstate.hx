@@ -351,8 +351,10 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 	}
 
 	public function reloadTab(tab:SelectionTab = NOTE_SELECTION) {
-		box.destroy();
-		remove(box);
+		if (box != null) {
+			box.destroy();
+			remove(box);
+		}
 		notesGroup.clear();
 		btnGroup.clear();
 		modeNotes.clear();
