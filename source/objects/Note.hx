@@ -449,8 +449,8 @@ class Note extends FlxSprite
 		for (i => quant in quantizations) {
 			if (snap % (192 / quant) == 0) {
 				noteSplashData.r = rgbShader.r = ClientPrefs.data.arrowRGBQuantization[i][0];
-				noteSplashData.g = rgbShader.g = ClientPrefs.data.arrowRGBQuantization[i][0];
-				noteSplashData.b = rgbShader.b = ClientPrefs.data.arrowRGBQuantization[i][0];
+				noteSplashData.g = rgbShader.g = ClientPrefs.data.arrowRGBQuantization[i][1];
+				noteSplashData.b = rgbShader.b = ClientPrefs.data.arrowRGBQuantization[i][2];
 				return;
 			}
 		}
