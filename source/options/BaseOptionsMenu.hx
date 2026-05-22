@@ -22,7 +22,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private var checkboxGroup:FlxTypedGroup<CheckboxThingie>;
 	private var grpTexts:FlxTypedGroup<AttachedText>;
-	private var settingGroup:FlxTypedGroup<FlxSprite>;
+	private var settingGroup:FlxTypedGroup<AttachedSprite>;
 
 	private var descBox:FlxSprite;
 	private var descText:FlxText;
@@ -88,7 +88,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			grpOptions.add(optionText);
 
 			if (optionsArray[i].customizable) {
-				var setting:AttachedSprite = cast new AttachedSprite().loadGraphic(Paths.image('modsMenuButtons'), true, 54, 54);
+				var setting:AttachedSprite = new AttachedSprite().loadGraphic(Paths.image('modsMenuButtons'), true, 54, 54);
 				setting.animation.add('idle', [3]);
 				setting.animation.play('idle');
 				setting.scale.set(2, 2);
