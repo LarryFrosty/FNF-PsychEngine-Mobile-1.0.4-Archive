@@ -10,7 +10,7 @@ class CustomizationSubState extends MusicBeatSubstate
 		FlxTween.tween(bg, { alpha: 0.6 }, 0.5);
 
 		addTouchPad('NONE', 'B');
-		super.create();,
+		super.create();
 	}
 
 	override function update(elapsed:Float) {
