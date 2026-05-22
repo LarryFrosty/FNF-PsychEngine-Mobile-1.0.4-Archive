@@ -88,27 +88,16 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			grpOptions.add(optionText);
 
 			if (optionsArray[i].customizable) {
-				var setting:AttachedSprite = new AttachedSprite();
-				setting.loadGraphic(Paths.image('modsMenuButtons'), true, 54, 54);
-				setting.animation.add('idle', [3]);
-				setting.animation.play('idle');
-				setting.scale.set(2, 2);
+				var setting:AttachedSprite = new AttachedSprite('settingButton');
+				setting.scale.set(1.5, 1.5);
 				setting.updateHitbox();
 				setting.ID = i;
 				setting.copyAlpha = false;
 				setting.alpha = 0;
 				setting.sprTracker = optionText;
-				setting.xAdd = optionText.width + 50;
-				setting.yAdd = 25;
+				setting.xAdd = optionText.width + 20;
+				setting.yAdd = 50;
 				settingGroup.add(setting);
-
-				var settingBg = new AttachedSprite();
-				settingBg.makeGraphic(Std.int(setting.width + 40), Std.int(setting.height + 20), FlxColor.BLACK);
-				settingBg.sprTracker = setting;
-				settingBg.xAdd = -20;
-				settingBg.yAdd = -10;
-				settingBg.alphaMult = 0.6;
-				insert(members.indexOf(settingGroup), settingBg);
 			}
 
 			if(optionsArray[i].type == BOOL)
@@ -556,16 +545,24 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			if(text.ID == curSelected) text.alpha = 1;
 		}
 		for (setting in settingGroup) {
-			FlxTween.cancelTweensOf(setting);
 			if (setting.ID == curSelected) {
+				FlxTween.cancelTweensOf(setting);
 				setting.alpha = 0;
+				setting.visible = true;
 				setting.xAdd = setting.sprTracker.width - 200;
 				FlxTween.tween(setting, { xAdd: setting.xAdd + 300, alpha: 1 }, 0.15, { ease: FlxEase.quadOut });
 			}
-			else if (setting.alpha != 0) {
-				setting.alpha = 1;
-				setting.xAdd = setting.sprTracker.width + 50;
-				FlxTween.tween(setting, { xAdd: setting.xAdd - 300, alpha: 0 }, 0.15, { ease: FlxEase.quadOut });
+			else {
+				// bruhhhhh
+				var shouldRun = true;
+				FlxTween.globalManager.forEachTweensOf(setting, null, twn -> {
+					shouldRun = false;
+				});
+				if (shouldRun) {
+					setting.alpha = 1;
+					setting.xAdd = setting.sprTracker.width + 50;
+					FlxTween.tween(setting, { xAdd: setting.xAdd - 300, alpha: 0 }, 0.15, { ease: FlxEase.quadOut });
+				}
 			}
 		}
 
