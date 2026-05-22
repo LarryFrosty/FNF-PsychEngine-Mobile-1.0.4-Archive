@@ -69,30 +69,30 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 					note.rgbShader.r = ClientPrefs.data.arrowRGBQuantization[i][0];
 					note.rgbShader.g = ClientPrefs.data.arrowRGBQuantization[i][1];
 					note.rgbShader.b = ClientPrefs.data.arrowRGBQuantization[i][2];
-					add(note);
+					notesGroup.add(note);
 
-					var alph = new Alphabet(note.x + 160, note.y - 15, Note.quantizations[i] + 'th Note', false);
-					alph.setScale(0.5, 0.5);
-					for (letter in alph.letters) letter.setColorTransform(1, 1, 1, 1, 255, 255, 255, 0);
-					add(alph);
+					var snapTxt = new Alphabet(note.x + 160, note.y - 15, Note.quantizations[i] + 'th Note', false);
+					snapTxt.setScale(0.5, 0.5);
+					for (letter in snapTxt.letters) letter.setColorTransform(1, 1, 1, 1, 255, 255, 255, 0);
+					add(snapTxt);
 
-					var alph = new Alphabet(note.x + 140, note.y + 60, 'EDIT');
-					alph.setScale(0.4, 0.4);
-					alph.ID = i;
-					btnGroup.add(alph);
+					var editTxt = new Alphabet(note.x + 140, note.y + 60, 'EDIT');
+					editTxt.setScale(0.4, 0.4);
+					editTxt.ID = i;
+					btnGroup.add(editTxt);
 
-					var bg = new FlxSprite(alph.x - 20, alph.y - 5).makeGraphic(Math.round(alph.width * 1.5), Math.round(alph.height * 1.5), 0xFF1A1A1A);
+					var resetTxt = new Alphabet(editTxt.x + 120, editTxt.y, 'RESET');
+					resetTxt.setScale(0.4, 0.4);
+					resetTxt.ID = i;
+					btnGroup.add(resetTxt);
+
+					var bg = new FlxSprite(editTxt.x - 20, editTxt.y- 5).makeGraphic(Math.round(editTxt.width * 1.5), Math.round(editTxt.height * 1.5), 0xFF1A1A1A);
 					FlxSpriteUtil.drawRect(bg, 0, 0, bg.width, bg.height, 0, {thickness: 5, color: 0xFFFFFFFF});
-					insert(members.indexOf(alph), bg);
+					insert(members.indexOf(btnGroup), bg);
 
-					var alph = new Alphabet(alph.x + 120, alph.y, 'RESET');
-					alph.setScale(0.4, 0.4);
-					alph.ID = i;
-					btnGroup.add(alph);
-
-					var bg = new FlxSprite(alph.x - 20, alph.y - 5).makeGraphic(Math.round(alph.width * 1.5), Math.round(alph.height * 1.5), 0xFF1A1A1A);
+					var bg = new FlxSprite(resetTxt.x - 20, resetTxt.y - 5).makeGraphic(Math.round(resetTxt.width * 1.5), Math.round(resetTxt.height * 1.5), 0xFF1A1A1A);
 					FlxSpriteUtil.drawRect(bg, 0, 0, bg.width, bg.height, 0, {thickness: 5, color: 0xFFFFFFFF});
-					insert(members.indexOf(alph), bg);
+					insert(members.indexOf(btnGroup), bg);
 				}
 			case NOTE_EDITING:
 		}

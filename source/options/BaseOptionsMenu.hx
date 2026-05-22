@@ -554,7 +554,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				setting.xAdd = setting.sprTracker.width - 200;
 				FlxTween.tween(setting, { xAdd: setting.xAdd + 300, alpha: 1 }, 0.15, { ease: FlxEase.quadOut });
 			}
-			else {
+			else if (setting.alpha != 0) {
 				setting.alpha = 1;
 				setting.xAdd = setting.sprTracker.width + 50;
 				FlxTween.tween(setting, { xAdd: setting.xAdd - 300, alpha: 0 }, 0.15, { ease: FlxEase.quadOut });
