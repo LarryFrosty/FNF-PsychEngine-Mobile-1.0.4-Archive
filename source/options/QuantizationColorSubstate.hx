@@ -309,7 +309,7 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 						FlxG.sound.play(Paths.sound('scrollMenu'), 0.6);
 						updateColors();
 					}
-					else if(pointerY() >= hexTypeLine.y && pointerY() < hexTypeLine.y + hexTypeLine.height && (pointerX() - 1000) <= -68) {
+					else if(pointerY() >= hexTypeLine.y && pointerY() < hexTypeLine.y + hexTypeLine.height && (pointerX() - 1000) <= -55) {
 						hexTypeNum = 0;
 						for (letter in alphabetHex.letters) {
 							if (letter.x - letter.offset.x + letter.width <= pointerX()) hexTypeNum++;
