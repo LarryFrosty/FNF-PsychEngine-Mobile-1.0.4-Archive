@@ -144,9 +144,9 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 
 		var pressedBack:Bool = false;
 		for (spr in btnGroup) {
-			if (!(spr is Alphabet)) return;
+			if (!(spr is Alphabet)) continue;
 			var btn:Alphabet = cast(spr, Alphabet);
-			if (!btn.bold) return;
+			if (!btn.bold) continue;
 			if (pointerOverlaps(btn) && generalPressed) {
 				if (btn.text == 'EDIT') {
 					editingNote = btn.ID;
