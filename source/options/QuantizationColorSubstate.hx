@@ -1,6 +1,6 @@
 package options;
 
-class CustomizationSubState extends MusicBeatSubstate
+class QuantizationColorSubstate extends MusicBeatSubstate
 {
 	override function create() {
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);

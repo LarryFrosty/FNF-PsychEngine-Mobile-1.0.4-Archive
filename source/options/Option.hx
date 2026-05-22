@@ -22,7 +22,9 @@ class Option
 	public var text(get, set):String;
 	public var onChange:Void->Void = null; //Pressed enter (on Bool type options) or pressed/held left/right (on other types)
 	public var type:OptionType = BOOL;
+
 	public var customizable:Bool = false;
+	public var customizationClass:Class;
 
 	public var scrollSpeed:Float = 50; //Only works on int/float, defines how fast it scrolls per second while holding left/right
 	public var variable(default, null):String = null; //Variable from ClientPrefs.hx
@@ -42,7 +44,7 @@ class Option
 	public var defaultKeys:Keybind = null; //Only used in keybind type
 	public var keys:Keybind = null; //Only used in keybind type
 
-	public function new(name:String, description:String = '', variable:String, type:OptionType = BOOL, ?options:Array<String> = null, ?translation:String = null, customizable = false)
+	public function new(name:String, description:String = '', variable:String, type:OptionType = BOOL, ?options:Array<String> = null, ?translation:String = null, customizable = false, ?customizationClass:Class)
 	{
 		_name = name;
 		_translationKey = translation != null ? translation : _name;
@@ -52,6 +54,8 @@ class Option
 		this.type = type;
 		this.options = options;
 		this.customizable = customizable;
+		this.customizationClass = customizationClass;
+		if (this.customizationClass == null) this.customizable = false;
 
 		if(this.type != KEYBIND) this.defaultValue = Reflect.getProperty(ClientPrefs.defaultData, variable);
 		switch(type)

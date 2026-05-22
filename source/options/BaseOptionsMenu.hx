@@ -12,6 +12,8 @@ import backend.InputFormatter;
 
 class BaseOptionsMenu extends MusicBeatSubstate
 {
+	private var ignoreCheck:Bool = false;
+
 	private var curOption:Option = null;
 	private var curSelected:Int = 0;
 	private var optionsArray:Array<Option>;
@@ -143,6 +145,11 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	{
 		super.update(elapsed);
 
+		if (ignoreCheck) {
+			ignoreCheck = false;
+			return;
+		}
+
 		if(bindingKey)
 		{
 			bindingKeyUpdate(elapsed);
@@ -170,7 +177,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 					var pressed:Bool = FlxG.mouse.overlaps(setting) && FlxG.mouse.justPressed;
 					if (Controls.instance.mobileC) pressed = TouchUtil.overlaps(setting) && TouchUtil.justPressed;
 					if (pressed) {
-						openSubState(new options.CustomizationSubState());
+						openSubState(Type.createInstance(setting.customizationClass, []));
 						FlxG.sound.play(Paths.sound('scrollMenu'));
 					}
 				}
@@ -422,6 +429,17 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				closeBinding();
 			}
 		}
+	}
+
+	override function openSubState(subState:FlxSubState) {
+		touchPad.visible = false;
+		super.openSubState(subState);
+	}
+
+	override function closeSubState() {
+		touchPad.visible = true;
+		ignoreCheck = true;
+		super.closeSubState();
 	}
 
 	final MAX_KEYBIND_WIDTH = 320;
