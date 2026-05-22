@@ -177,7 +177,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 					var pressed:Bool = FlxG.mouse.overlaps(setting) && FlxG.mouse.justPressed;
 					if (Controls.instance.mobileC) pressed = TouchUtil.overlaps(setting) && TouchUtil.justPressed;
 					if (pressed) {
-						openSubState(Type.createInstance(setting.customizationClass, []));
+						openSubState(Type.createInstance(curOption.customizationClass, []));
 						FlxG.sound.play(Paths.sound('scrollMenu'));
 					}
 				}
