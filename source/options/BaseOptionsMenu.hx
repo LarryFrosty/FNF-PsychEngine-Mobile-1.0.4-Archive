@@ -431,7 +431,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		}
 	}
 
-	override function openSubState(subState:FlxSubState) {
+	override function openSubState(subState:flixel.FlxSubState) {
 		touchPad.visible = false;
 		super.openSubState(subState);
 	}
