@@ -85,9 +85,11 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			grpOptions.add(optionText);
 
 			if (optionsArray[i].customizable) {
-				var setting:FlxSprite = new FlxSprite(optionText.x + optionText.width + 100, optionText.y).loadGraphic(Paths.image('modsMenuButtons'), 54, 54);
+				var setting:FlxSprite = new FlxSprite(optionText.x + optionText.width + 100, optionText.y).loadGraphic(Paths.image('modsMenuButtons'), true, 54, 54);
 				setting.animation.add('idle', [3]);
 				setting.animation.play('idle');
+				setting.scale.set(2.5, 2.5);
+				setting.updateHitbox();
 				setting.ID = i;
 				setting.visible = false;
 				settingGroup.add(setting);

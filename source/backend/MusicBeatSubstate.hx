@@ -110,10 +110,12 @@ class MusicBeatSubstate extends FlxSubState
 
 	override function destroy()
 	{
-		controls.isInSubstate = false;
+		if (this == instance) {
+			instance = null;
+			controls.isInSubstate = false;
+		}
 		removeTouchPad();
 		removeMobileControls();
-		if (this == instance) instance = null;
 
 		super.destroy();
 	}
