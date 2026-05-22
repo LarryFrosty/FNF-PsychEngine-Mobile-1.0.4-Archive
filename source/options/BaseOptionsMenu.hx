@@ -97,7 +97,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				setting.sprTracker = optionText;
 				setting.xAdd = optionText.width + 20;
 				setting.yAdd = 50;
-				setting.offset.x = 100;
+				setting.offset.x = 150;
 				settingGroup.add(setting);
 			}
 
@@ -546,14 +546,15 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			if(text.ID == curSelected) text.alpha = 1;
 		}
 		for (setting in settingGroup) {
-			FlxTween.cancelTweensOf(setting);
 			if (setting.ID == curSelected) {
+				FlxTween.cancelTweensOf(setting);
 				setting.health = 0.5;
-				FlxTween.tween(setting, { 'offset.x': 0, alpha: 1 }, 0.25, { ease: FlxEase.quadOut });
+				FlxTween.tween(setting, { 'offset.x': 0, alpha: 1 }, 0.15, { ease: FlxEase.quadOut });
 			}
 			else if (setting.health == 0.5) { // health 0.5 = previous option
+				FlxTween.cancelTweensOf(setting);
 				setting.health = 1;
-				FlxTween.tween(setting, { 'offset.x': 100, alpha: 0 }, 0.25, { ease: FlxEase.quadOut });
+				FlxTween.tween(setting, { 'offset.x': 150, alpha: 0 }, 0.15, { ease: FlxEase.quadOut });
 			}
 		}
 
