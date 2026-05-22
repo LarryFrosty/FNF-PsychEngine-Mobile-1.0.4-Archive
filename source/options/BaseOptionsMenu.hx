@@ -95,9 +95,10 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				setting.scale.set(2, 2);
 				setting.updateHitbox();
 				setting.ID = i;
+				setting.copyAlpha = false;
 				setting.alpha = 0;
 				setting.sprTracker = optionText;
-				setting.xAdd = optionText.width + 100;
+				setting.xAdd = optionText.width + 50;
 				setting.yAdd = 25;
 				settingGroup.add(setting);
 			}
@@ -551,12 +552,12 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			if (setting.ID == curSelected) {
 				setting.alpha = 0;
 				setting.xAdd = setting.sprTracker.width - 200;
-				FlxTween.tween(setting, { xAdd: setting.xAdd + 300, alpha: 1 }, 0.5, { ease: FlxEase.quadOut });
+				FlxTween.tween(setting, { xAdd: setting.xAdd + 300, alpha: 1 }, 0.15, { ease: FlxEase.quadOut });
 			}
 			else {
 				setting.alpha = 1;
-				setting.xAdd = setting.sprTracker.width + 100;
-				FlxTween.tween(setting, { xAdd: setting.xAdd - 300, alpha: 0 }, 0.5, { ease: FlxEase.quadOut });
+				setting.xAdd = setting.sprTracker.width + 50;
+				FlxTween.tween(setting, { xAdd: setting.xAdd - 300, alpha: 0 }, 0.15, { ease: FlxEase.quadOut });
 			}
 		}
 

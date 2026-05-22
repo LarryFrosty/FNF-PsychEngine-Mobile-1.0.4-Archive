@@ -66,12 +66,12 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 					note.scale.y *= 0.95;
 					note.x = i > 3 ? 640 : 240;
 					note.y = 128 + (120 * (i > 3 ? i-4 : i));
-					note.rgbShader.r = Note.quantizations[i][1][0];
-					note.rgbShader.g = Note.quantizations[i][1][1];
-					note.rgbShader.b = Note.quantizations[i][1][2];
+					note.rgbShader.r = ClientPrefs.data.arrowRGBQuantization[i][0];
+					note.rgbShader.g = ClientPrefs.data.arrowRGBQuantization[i][1];
+					note.rgbShader.b = ClientPrefs.data.arrowRGBQuantization[i][2];
 					add(note);
 
-					var alph = new Alphabet(note.x + 160, note.y - 15, Note.quantizations[i][0] + 'th Note', false);
+					var alph = new Alphabet(note.x + 160, note.y - 15, Note.quantizations[i] + 'th Note', false);
 					alph.setScale(0.5, 0.5);
 					for (letter in alph.letters) letter.setColorTransform(1, 1, 1, 1, 255, 255, 255, 0);
 					add(alph);
