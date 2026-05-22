@@ -24,7 +24,7 @@ class Option
 	public var type:OptionType = BOOL;
 
 	public var customizable:Bool = false;
-	public var customizationClass:Class;
+	public var customizationClass:Class<T>;
 
 	public var scrollSpeed:Float = 50; //Only works on int/float, defines how fast it scrolls per second while holding left/right
 	public var variable(default, null):String = null; //Variable from ClientPrefs.hx
@@ -44,7 +44,7 @@ class Option
 	public var defaultKeys:Keybind = null; //Only used in keybind type
 	public var keys:Keybind = null; //Only used in keybind type
 
-	public function new(name:String, description:String = '', variable:String, type:OptionType = BOOL, ?options:Array<String> = null, ?translation:String = null, customizable = false, ?customizationClass:Class)
+	public function new(name:String, description:String = '', variable:String, type:OptionType = BOOL, ?options:Array<String> = null, ?translation:String = null, customizable = false, ?customizationClass:Class<T>)
 	{
 		_name = name;
 		_translationKey = translation != null ? translation : _name;
