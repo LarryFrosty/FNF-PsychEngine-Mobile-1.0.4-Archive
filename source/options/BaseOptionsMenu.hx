@@ -548,13 +548,13 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			if (setting.ID == curSelected) {
 				FlxTween.cancelTweensOf(setting);
 				setting.alpha = 0;
-				setting.visible = true;
 				setting.xAdd = setting.sprTracker.width + 20 - 300;
 				FlxTween.tween(setting, { xAdd: setting.xAdd + 300, alpha: 1 }, 0.15, { ease: FlxEase.quadOut });
 			}
 			else {
 				// bruhhhhh
 				var shouldRun = true;
+				@:privateAccess
 				FlxTween.globalManager.forEachTweensOf(setting, null, twn -> {
 					shouldRun = false;
 				});
