@@ -309,7 +309,7 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 						FlxG.sound.play(Paths.sound('scrollMenu'), 0.6);
 						updateColors();
 					}
-					else if(pointerY() >= hexTypeLine.y && pointerY() < hexTypeLine.y + hexTypeLine.height && Math.abs(pointerX() - 1000) <= 84) {
+					else if(pointerY() >= hexTypeLine.y && pointerY() < hexTypeLine.y + hexTypeLine.height && (pointerX() - 1000) <= -68) {
 						hexTypeNum = 0;
 						for (letter in alphabetHex.letters) {
 							if (letter.x - letter.offset.x + letter.width <= pointerX()) hexTypeNum++;
@@ -486,9 +486,8 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 				editingGroup.add(tip);
 
 				addTouchPad('NONE', 'B_C');
-				var old = touchPad.buttonC.x;
-				touchPad.buttonC.x = touchPad.buttonB.x;
-				touchPad.buttonB.x = old;
+				touchPad.buttonB.x = touchPad.buttonC.x;
+				touchPad.buttonC.x = 0;
 		}
 
 		ignoreCheckForThisFrame = true;
