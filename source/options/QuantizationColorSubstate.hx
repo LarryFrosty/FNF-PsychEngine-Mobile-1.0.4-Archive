@@ -90,7 +90,7 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 					alph.ID = i;
 					btnGroup.add(alph);
 
-					var bg = new FlxSprite(alph.x - 20, alph.y - 5).makeGraphic(alph.width * 1.5, alph.height * 1.5, 0xFF1A1A1A);
+					var bg = new FlxSprite(alph.x - 20, alph.y - 5).makeGraphic(Math.round(alph.width * 1.5), Math.round(alph.height * 1.5), 0xFF1A1A1A);
 					FlxSpriteUtil.drawRect(bg, 0, 0, bg.width, bg.height, 0, {thickness: 5, color: 0xFFFFFFFF});
 					insert(members.indexOf(alph), bg);
 				}

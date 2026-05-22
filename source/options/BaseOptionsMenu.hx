@@ -88,8 +88,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			grpOptions.add(optionText);
 
 			if (optionsArray[i].customizable) {
-				var setting:AttachedSprite = new AttachedSprite();
-				setting.loadGraphic(Paths.image('modsMenuButtons'), true, 54, 54);
+				var setting:AttachedSprite = cast new AttachedSprite().loadGraphic(Paths.image('modsMenuButtons'), true, 54, 54);
 				setting.animation.add('idle', [3]);
 				setting.animation.play('idle');
 				setting.scale.set(2, 2);
