@@ -103,7 +103,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				settingGroup.add(setting);
 
 				var settingBg = new AttachedSprite();
-				settingBg.makeGraphic(setting.width + 40, setting.height + 20, FlxColor.BLACK);
+				settingBg.makeGraphic(Std.int(setting.width + 40), Std.int(setting.height + 20), FlxColor.BLACK);
 				settingBg.sprTracker = setting;
 				settingBg.xAdd = -20;
 				settingBg.yAdd = -10;
