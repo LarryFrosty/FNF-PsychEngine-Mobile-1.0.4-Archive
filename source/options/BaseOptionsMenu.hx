@@ -85,7 +85,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			grpOptions.add(optionText);
 
 			if (optionsArray[i].customizable) {
-				var setting:FlxSprite = new FlxSprite(optionText.x + optionText.width + 100, optionText.y).loadGraphic(Paths.image('modsMenuButton'), 54, 54);
+				var setting:FlxSprite = new FlxSprite(optionText.x + optionText.width + 100, optionText.y).loadGraphic(Paths.image('modsMenuButtons'), 54, 54);
 				setting.animation.add('idle', [3]);
 				setting.animation.play('idle');
 				setting.ID = i;
@@ -163,6 +163,16 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 		if(nextAccept <= 0)
 		{
+			for (setting in settingGroup) {
+				if (setting.ID == curSelected) {
+					var pressed:Bool = FlxG.mouse.overlaps(setting) && FlxG.mouse.justPressed;
+					if (Controls.instance.mobileC) pressed = TouchUtil.overlaps(setting) && TouchUtil.justPressed;
+					if (pressed) {
+						openSubState(new options.CustomizableSubstate());
+						FlxG.sound.play(Paths.sound('scrollMenu'));
+					}
+				}
+			}
 			switch(curOption.type)
 			{
 				case BOOL:

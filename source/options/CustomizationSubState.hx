@@ -4,8 +4,10 @@ class CustomizationSubState extends MusicBeatSubstate
 {
 	override function create() {
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-		bg.alpha = 0.6;
+		bg.alpha = 0;
 		add(bg);
+
+		FlxTween.tween(bg, { alpha: 0.6 }, 0.5);
 
 		addTouchPad('NONE', 'B');
 		super.create();,
