@@ -100,6 +100,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				setting.sprTracker = optionText;
 				setting.xAdd = optionText.width + 50;
 				setting.yAdd = 25;
+				FlxSpriteUtil.drawRect(setting, 20, -10, setting.width + 20, setting.height + 10, 0x7F000000);
 				settingGroup.add(setting);
 			}
 
