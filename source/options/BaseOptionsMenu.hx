@@ -549,7 +549,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				FlxTween.cancelTweensOf(setting);
 				setting.alpha = 0;
 				setting.visible = true;
-				setting.xAdd = setting.sprTracker.width - 200;
+				setting.xAdd = setting.sprTracker.width + 20 - 300;
 				FlxTween.tween(setting, { xAdd: setting.xAdd + 300, alpha: 1 }, 0.15, { ease: FlxEase.quadOut });
 			}
 			else {
@@ -560,7 +560,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				});
 				if (shouldRun) {
 					setting.alpha = 1;
-					setting.xAdd = setting.sprTracker.width + 50;
+					setting.xAdd = setting.sprTracker.width + 20;
 					FlxTween.tween(setting, { xAdd: setting.xAdd - 300, alpha: 0 }, 0.15, { ease: FlxEase.quadOut });
 				}
 			}
