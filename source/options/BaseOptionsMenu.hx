@@ -180,7 +180,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				if (setting.ID == curSelected) {
 					var pressed:Bool = FlxG.mouse.overlaps(setting) && FlxG.mouse.justPressed;
 					if (Controls.instance.mobileC) pressed = TouchUtil.overlaps(setting) && TouchUtil.justPressed;
-					if (pressed) {
+					if (pressed || FlxG.gamepads.anyJustPressed(LEFT_STICK_CLICK)) { // idk what button to use for controller lol
 						openSubState(Type.createInstance(curOption.customizationClass, []));
 						FlxG.sound.play(Paths.sound('scrollMenu'));
 					}
