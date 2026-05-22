@@ -75,7 +75,7 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 		notesGroup = new FlxTypedGroup<Note>();
 		add(notesGroup);
 
-		btnGroup = new FlxTypedGroup<Alphabet>();
+		btnGroup = new FlxTypedGroup<FlxSprite>();
 		add(btnGroup);
 
 		editingGroup = new FlxTypedGroup<Dynamic>();
@@ -278,22 +278,7 @@ class QuantizationColorSubstate extends MusicBeatSubstate
 					if (pointerOverlaps(modeNotes)) {
 						modeNotes.forEachAlive(function(note:FlxSprite) {
 							if (curSelectedMode != note.ID && pointerOverlaps(note)) {
-								modeBG.visible = notesBG.visible = false;
 								curSelectedMode = note.ID;
-								onModeColumn = true;
-								updateNotes();
-								FlxG.sound.play(Paths.sound('scrollMenu'), 0.6);
-							}
-						});
-					}
-					else if (pointerOverlaps(myNotes)) {
-						myNotes.forEachAlive(function(note:StrumNote) {
-							if (curSelectedNote != note.ID && pointerOverlaps(note)) {
-								modeBG.visible = notesBG.visible = false;
-								curSelectedNote = note.ID;
-								onModeColumn = false;
-								bigNote.rgbShader.parent = Note.globalRgbShaders[note.ID];
-								bigNote.shader = Note.globalRgbShaders[note.ID].shader;
 								updateNotes();
 								FlxG.sound.play(Paths.sound('scrollMenu'), 0.6);
 							}
